@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <header class="flex px-32  justify-around bg-[#ffd500] py-8">
+            <img src="./images/logo.png" alt="" class="w-[250px]">
+            <div class="searchbar bg-white px-3  py-2 flex items-center w-1/3 justify-between">
+                <input type="text"
+                    placeholder="Cerca tra oltri 10.000 prodotti. Cerca per prodotto, categoria, brand..." class="w-4/5"
+                    v-model="filterString">
+                <i class="fa-solid fa-magnifying-glass ms-12 cursor-pointer"></i>
+            </div>
+            <div class="icon-container text-2xl flex gap-3 items-center">
+                <div class="flex items-center gap-2">
+                    <i class="fa-regular fa-user"></i>
+                    <p class="text-lg">
+                        Accedi o registrati
+                    </p>
+                </div>
+
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+
+        </header>
+        <div class="product-container flex gap-3 py-16 px-10 flex-wrap ">
+
+            <div class="product-card h-[520px] w-[250px] border-2 border-gray-200 flex flex-col px-4 gap-5 relative"
+                v-for="(product, index) in productList" :key="product.productName"
+                v-show="!filterString || product.productName.toLowerCase().includes(filterString.toLowerCase()) || product.productCategory.toLowerCase().includes(filterString.toLowerCase()) || product.productType.toLowerCase().includes(filterString.toLowerCase()) || product.productBrand.toLowerCase().includes(filterString.toLowerCase()) ">
+                <i class="fa-solid text-4xl absolute top-2 right-2"
+                    :class="product.productCategory == 'gatto'? 'fa-shield-cat' : 'fa-shield-dog'"></i>
+                <img :src="'./images/' + product.productImage" alt="">
+                <h2 class="text-2xl fw-bolder  h-1/5 overflow-hidden text-center">
+                    <span class="line-clamp-2">{{ product.productName }}</span>
+                </h2>
+                <span class="text-base mt-[-35px] uppercase text-gray-600 ">
+                    {{ product.productBrand }}
+                </span>
+                <div class="stars-container flex gap-1 items-center">
+                    <i class="fa-solid fa-star bg-[#00b67a] text-white text-xs p-1"
+                        v-for="count in product.productVote"></i>
+                    <span class="text-xs">
+                        {{product.productReviews}} recensioni
+                    </span>
+                </div>
+                <div class="text-xl fw-bolder flex items-center gap-3"
+                    :class="product.productCategory == 'gatto'? 'text-red-500' : ''">
+                    € {{product.productPrice.toFixed(2)}}
+                    <span v-if="product.productCategory == 'gatto'"
+                        class="bg-red-500 text-white px-2 rounded-xl fw-bolder flex items-center justify-center w-fit ">
+                        -20%
+                    </span>
+                </div>
+                <div class="w-75 cursor-pointer bg-[#ffd500] flex gap-3 items-center justify-center py-2">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>
+                        Aggiungi al carello
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+
+
+
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
