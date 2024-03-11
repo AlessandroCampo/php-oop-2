@@ -27,6 +27,7 @@ $shopProducts = [$naturalKibbleCat, $mongeKibbleCat, $royalKibbleCat, $mongeKibb
 foreach ($shopProducts as $product) {
     $product->setDiscount();
     $product->setIcon();
+    $product->addReview('This is absoultely not a fake review, but this product is the best I have ever tried and so much better than any other I purchased on other sites');
     if ($product instanceof Kibble) {
         $product->getPricePerKg();
     }

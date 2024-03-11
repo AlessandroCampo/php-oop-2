@@ -1,5 +1,7 @@
 <?php
 
+include './traits/Review.php';
+
 class ShopProduct implements JsonSerializable
 {
     private $productName;
@@ -9,10 +11,11 @@ class ShopProduct implements JsonSerializable
     public  $productPrice;
     private $productImage;
     private $productVote;
-    private $productReviews;
+    private $productReviewsCount;
     private $productIcon;
+    use ReviewTrait;
 
-    public function __construct(string $productName, string $productBrand, string $productType, string $productCategory, float $productPrice, string $productImage, int $productVote, int $productReviews)
+    public function __construct(string $productName, string $productBrand, string $productType, string $productCategory, float $productPrice, string $productImage, int $productVote, int $productReviewsCount)
     {
         $this->productName = $productName;
         $this->productBrand = $productBrand;
@@ -21,7 +24,7 @@ class ShopProduct implements JsonSerializable
         $this->productPrice = $productPrice;
         $this->productImage = $productImage;
         $this->productVote = $productVote;
-        $this->productReviews = $productReviews;
+        $this->productReviewsCount = $productReviewsCount;
     }
 
     public function setDiscount()
@@ -53,8 +56,9 @@ class ShopProduct implements JsonSerializable
             'productPrice' => $this->productPrice,
             'productImage' => $this->productImage,
             'productVote' => $this->productVote,
-            'productReviews' => $this->productReviews,
+            'productReviewsCount' => $this->productReviewsCount,
             'productIcon' => $this->productIcon,
+            'productReviews' => $this->reviews,
         ];
     }
 }
