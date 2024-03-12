@@ -3,28 +3,22 @@
 include './traits/Review.php';
 
 class ShopProduct implements JsonSerializable
-{
-    private $productName;
-    private $productType;
-    private $productBrand;
-    private $productCategory;
-    public  $productPrice;
-    private $productImage;
-    private $productVote;
-    private $productReviewsCount;
-    private $productIcon;
-    use ReviewTrait;
 
-    public function __construct(string $productName, string $productBrand, string $productType, string $productCategory, float $productPrice, string $productImage, int $productVote, int $productReviewsCount)
-    {
-        $this->productName = $productName;
-        $this->productBrand = $productBrand;
-        $this->productType = $productType;
-        $this->productCategory = $productCategory;
-        $this->productPrice = $productPrice;
-        $this->productImage = $productImage;
-        $this->productVote = $productVote;
-        $this->productReviewsCount = $productReviewsCount;
+{
+    use ReviewTrait;
+    private $productIcon;
+
+
+    public function __construct(
+        private string $productName,
+        private string $productBrand,
+        private string $productType,
+        private string $productCategory,
+        public float $productPrice,
+        private string $productImage,
+        private int $productVote,
+        private int $productReviewsCount
+    ) {
     }
 
     public function setDiscount()
@@ -42,7 +36,6 @@ class ShopProduct implements JsonSerializable
             $this->productIcon = 'dogIcon.png';
         }
     }
-
 
 
     #[\ReturnTypeWillChange]
